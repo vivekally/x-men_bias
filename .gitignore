@@ -1,0 +1,66 @@
+# Python bytecode:
+*.py[co]
+.coverage
+.boto
+*tests.py
+*test_data.json
+# Packaging files:
+*.egg*
+dist
+
+# Editor temp files:
+*.swp
+*~
+
+# Any unwanted build directories:
+build
+
+# SQLite3 database files:
+*.db
+*.rdb
+
+# Celerybeat scheduler file:
+celerybeat-schedule
+
+.idea/
+.vscode/
+.htaccess
+.DS_Store
+hulk.iml
+.sass-cache
+config.txt
+node_modules
+oplogstatus.txt
+Hedwig/settings/local.py
+Hedwig/static/
+Hedwig/media/
+.vagrant/
+Vagrantfile
+*.psql
+
+#emacs cruft
+*~
+*#*
+*.pyc
+django_start.sh
+npm-debug.log
+.vscode
+*.orig
+
+# Docker files
+.env
+venv/
+
+#serverless
+.serverless
+node_modules
+/fontconfig/
+/pdfnetc/
+
+
+# helm
+
+kubernetes/*/*/charts/
+requirements.lock
+/static/
+*.pyc
