@@ -20,18 +20,20 @@ class JdClassification:
 
     def male_count(self, para):
         male_count = 0
+        print()
         for word in self.male_keywords:
             if len(word) < len(para):
-                status = KMPSearch(word, para)
+                status = KMPSearch(word, para.lower())
                 if status:
                     male_count += status
         return male_count
 
     def female_count(self, para):
         female_count = 0
+        print()
         for word in self.female_keywords:
             if len(word) < len(para):
-                status = KMPSearch(word, para)
+                status = KMPSearch(word, para.lower())
                 if status:
                     female_count += status
         return female_count
@@ -77,6 +79,7 @@ def KMPSearch(pat, txt):
     # Preprocess the pattern (calculate lps[] array)
     computeLPSArray(pat, M, lps)
     count = 0
+    pos_words = []
     i = 0  # index for txt[]
     while i < N:
         if pat[j] == txt[i]:
@@ -85,7 +88,14 @@ def KMPSearch(pat, txt):
 
         if j == M:
             "Found pattern at index " + str(i - j)
-            count += 1
+            pos_words.append(i-j)
+            br = i - j
+            pos_words.append(txt[br-1])
+            pos_words.append(pat)
+            if i-j > 0 and (txt[br-1] == ' ' or txt[br-1] == '\n' or txt[br-1] == '-'):
+                count += 1
+            elif i == 0:
+                count += 1
             j = lps[j - 1]
 
             # mismatch after j matches
@@ -96,4 +106,5 @@ def KMPSearch(pat, txt):
                 j = lps[j - 1]
             else:
                 i += 1
+    print(pos_words)
     return count
