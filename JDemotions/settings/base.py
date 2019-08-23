@@ -121,9 +121,18 @@ class Base(LoggerSettingsMixin, Configuration):
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.2/howto/static-files/
+    SETTINGS_DIR = os.path.join(os.path.dirname(__file__), '..')
+    PROJECT_PATH = os.path.abspath(os.path.join(SETTINGS_DIR, os.pardir))
+
+    STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
 
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+
+    STATICFILES_DIRS = (
+        STATIC_PATH,
+    )
+    # STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(PROJECT_PATH, "../static/")
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     # Django-origin-trail

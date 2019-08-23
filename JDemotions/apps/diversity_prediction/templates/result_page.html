@@ -1,0 +1,81 @@
+<!-- templates/result_page.html -->
+{% extends 'base.html' %}
+
+{% block title %}Result - BIAS{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <div class="filter_row">
+    </div>
+    <div class="data_row">
+        <div id="table_area">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Words Type</th>
+                    <th scope="col">Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td scope="row">Masculine-coded Words</td>
+                    <td scope="row" id="male_count">0</td>
+                </tr>
+                <tr>
+                    <td scope="row">Feminine-coded Words</td>
+                    <td scope="row" id="female_count">0</td>
+                </tr>
+                <tr>
+                    <td scope="row">Total</td>
+                    <td scope="row" id="total_count">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="status_chart"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var male_words = {{ male_words }};
+    var female_words = {{ female_words }};
+
+    // Load google charts
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    document.getElementById('male_count').innerText = male_words;
+    document.getElementById('female_count').innerText = female_words;
+    document.getElementById('total_count').innerText = male_words + female_words;
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Words Type', 'Number of Words'],
+            ['Masculine-coded Words', male_words],
+            ['Feminine-coded Words', female_words]
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {'title': 'BIAS', 'width': 850, 'height': 450};
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('status_chart'));
+        chart.draw(data, options);
+    }
+</script>
+<style>
+    .jumbotron {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .data_row {
+        display: flex;
+        flex-flow: row wrap;
+        background-color: white;
+    }
+</style>
+
+{% endblock %}

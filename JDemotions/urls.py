@@ -25,12 +25,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('JDemotions.apps.diversity_prediction.urls')),
 ]
 
-urlpatterns += [
-    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^user/create/$', views.GetBias, name="get_bias"),
-]
+# urlpatterns += [
+#     #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+#
+# ]
 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

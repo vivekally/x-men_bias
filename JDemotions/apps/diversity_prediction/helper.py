@@ -21,24 +21,27 @@ class JdClassification:
     def male_count(self, para):
         male_count = 0
         for word in self.male_keywords:
-            status = KMPSearch(word, para)
-            if status:
-                male_count += 1
+            if len(word) < len(para):
+                status = KMPSearch(word, para)
+                if status:
+                    male_count += 1
         return male_count
 
     def female_count(self, para):
         female_count = 0
-        for word in self.male_keywords:
-            status = KMPSearch(word, para)
-            if status:
-                female_count += 1
+        for word in self.female_keywords:
+            if len(word) < len(para):
+                status = KMPSearch(word, para)
+                if status:
+                    female_count += 1
         return female_count
 
 
 def computeLPSArray(pat, M, lps):
     len = 0  # length of the previous longest prefix suffix
-
     lps[0]  # lps[0] is always 0
+    #else:
+    #    lps = [0]
     i = 1
 
     # the loop calculates lps[i] for i = 1 to M-1
@@ -67,6 +70,8 @@ def KMPSearch(pat, txt):
     # create lps[] that will hold the longest prefix suffix
     # values for pattern
     lps = [0] * M
+    if not lps:
+        return False
     j = 0  # index for pat[]
 
     # Preprocess the pattern (calculate lps[] array)
@@ -80,6 +85,7 @@ def KMPSearch(pat, txt):
 
         if j == M:
             "Found pattern at index " + str(i - j)
+            return True
             j = lps[j - 1]
 
             # mismatch after j matches

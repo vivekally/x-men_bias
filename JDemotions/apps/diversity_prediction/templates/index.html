@@ -1,0 +1,80 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+{% block title %}BIAS{% endblock %}
+
+{% block content %}
+
+<div class="main_container">
+    <form action='' method="POST">
+        <div class="cover_image">
+            <img src="https://s3-ap-southeast-1.amazonaws.com/images.humanresourcesonline.net/wp-content/uploads/2018/04/Jerene-April-2018-gender-equality-123RF.jpg"
+                 width="100%">
+        </div>
+        <div class="title_text">
+            <h2>You deserve a job where you truly belong </h2>
+        </div>
+        <br>
+        {% csrf_token %}
+        <div>
+            <table>
+                {{ form.text_input }}
+            </table>
+        </div>
+        <div>
+            <input type="submit" class="btn btn-success" value="Click to check"/>
+        </div>
+        <br>
+    </form>
+</div>
+
+<script>
+    // function get_bias() {
+    //     var text = document.querySelector('#text_input').value;
+    //     if (text != null && text.trim() !== '') {
+    //         // $.ajax({
+    //         //     url: '',
+    //         //     method: 'GET',
+    //         //     data: {
+    //         //         'bias_text': text
+    //         //     },
+    //         //     dataType: 'json',
+    //         //     success: function (data) {
+    //         //         if(data.status_code == 500) {
+    //         //             alert("Server Error");
+    //         //         }
+    //         //     }
+    //         // });
+    //         var url = "?bias_text=" + text;
+    //         window.location.href = url;
+    //     }
+    // }
+
+    // function get_bias() {
+    //     var text = document.querySelector('#text_input').value;
+    //     var form = $('<form action=' + 'method="post">' +
+    //         'name="get_bias" value="' + text'" + '</form>');
+    //     $('body').append(form);
+    //     form.submit();
+    // }
+</script>
+<style>
+    textarea {
+        width: 800px;
+        height: 200px;
+        resize: horizontal;
+    }
+
+    .main_container {
+        display: flex;
+        flex-flow: column nowrap;
+        text-align: center;
+    }
+
+    .title_text {
+        font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        position: absolute;
+        top: 80px;
+        left: 50px;
+    }
+</style>
+{% endblock %}
