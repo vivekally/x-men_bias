@@ -1,0 +1,71 @@
+version: '3.3'
+services:
+  mimir_postgres:
+    image: postgres:9.4
+    container_name: mimir_postgres
+    volumes:
+      - /belong/mimir_postgres:/var/lib/postgresql/data
+    environment:
+      MIMIR_POSTGRES_USER: JDemotions
+      MIMIR_POSTGRES_PASSWORD: JDemotions
+      MIMIR_POSTGRES_DB: JDemotions
+    networks:
+      dev-network:
+        aliases:
+          - mimir_postgres
+    depends_on:
+      - resolvable
+
+  mimir_rabbitmq:
+    image: rabbitmq:3-management
+    container_name: mimir_rabbitmq
+    volumes:
+      - /belong/mimir_rabbitmq:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: JDemotions
+      RABBITMQ_DEFAULT_PASS: JDemotions
+    networks:
+      dev-network:
+        aliases:
+          - mimir_rabbitmq
+    depends_on:
+      - resolvable
+
+  mimir:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    user: ${USER_ID:-1000}:${USER_ID:-1000}
+    volumes:
+      - .:/code
+      - /belong/logs:/logs
+    environment:
+      DJANGO_SETTINGS_MODULE: JDemotions.settings
+      DJANGO_CONFIGURATION: Development
+      MIMIR_POSTGRES_USER: JDemotions
+      MIMIR_POSTGRES_PASSWORD: JDemotions
+      MIMIR_POSTGRES_DB: JDemotions
+    command: "gunicorn -b 0.0.0.0:8000 JDemotions.wsgi:application"
+
+    depends_on:
+      - resolvable
+      - mimir_postgres
+    dns: 8.8.8.8
+    networks:
+      dev-network:
+        aliases:
+          - JDemotions.dev.blng
+
+  resolvable:
+    image: mgood/resolvable
+    volumes:
+      - /etc/resolv.conf:/tmp/resolv.conf
+      - /var/run/docker.sock:/tmp/docker.sock
+    networks:
+      dev-network:
+        aliases:
+          - resolvable
+
+networks:
+  dev-network:
+    driver: bridge
