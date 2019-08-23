@@ -24,7 +24,7 @@ class JdClassification:
             if len(word) < len(para):
                 status = KMPSearch(word, para)
                 if status:
-                    male_count += 1
+                    male_count += status
         return male_count
 
     def female_count(self, para):
@@ -33,7 +33,7 @@ class JdClassification:
             if len(word) < len(para):
                 status = KMPSearch(word, para)
                 if status:
-                    female_count += 1
+                    female_count += status
         return female_count
 
 
@@ -76,7 +76,7 @@ def KMPSearch(pat, txt):
 
     # Preprocess the pattern (calculate lps[] array)
     computeLPSArray(pat, M, lps)
-
+    count = 0
     i = 0  # index for txt[]
     while i < N:
         if pat[j] == txt[i]:
@@ -85,7 +85,7 @@ def KMPSearch(pat, txt):
 
         if j == M:
             "Found pattern at index " + str(i - j)
-            return True
+            count += 1
             j = lps[j - 1]
 
             # mismatch after j matches
@@ -96,3 +96,4 @@ def KMPSearch(pat, txt):
                 j = lps[j - 1]
             else:
                 i += 1
+    return count
