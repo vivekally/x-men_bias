@@ -37,6 +37,7 @@ class Base(LoggerSettingsMixin, Configuration):
         'django_origin_trail',
 
         'rest_framework',
+        'JDemotions.apps.diversity_prediction'
     ]
 
     MIDDLEWARE = [
