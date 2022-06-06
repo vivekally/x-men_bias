@@ -5,7 +5,6 @@ import os
 import configurations
 from celery import Celery
 from celery.signals import before_task_publish, task_postrun, task_prerun
-from django_origin_trail.celery_signals import set_logger_params, set_task_local_context, delete_task_local_context
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'JDemotions.settings')
 os.environ.setdefault('DJANGO_CONFIGURATION', 'Development')
@@ -13,9 +12,6 @@ os.environ.setdefault('DJANGO_CONFIGURATION', 'Development')
 configurations.setup()
 
 # register django-origin-trail signals
-before_task_publish.connect(set_logger_params)
-task_prerun.connect(set_task_local_context)
-task_postrun.connect(delete_task_local_context)
 
 # celery apps
 app = Celery('JDemotions')

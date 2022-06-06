@@ -34,7 +34,6 @@ class Base(LoggerSettingsMixin, Configuration):
         'django.contrib.staticfiles',
 
         # Django-origin-trail
-        'django_origin_trail',
 
         'rest_framework',
         'JDemotions.apps.diversity_prediction'
@@ -51,8 +50,6 @@ class Base(LoggerSettingsMixin, Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
         # Django-origin-trail
-        'django_origin_trail.middlewares.OriginIdMiddleware',
-        'django_origin_trail.middlewares.ServiceTrailMiddleware',
 
         # static files
         'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -136,7 +133,6 @@ class Base(LoggerSettingsMixin, Configuration):
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     # Django-origin-trail
-    SERVICE_TRAIL_SERVICE_NAME = 'django_base'
 
     REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
