@@ -1,12 +1,34 @@
-## X-Men
+## X-Men Bias identification service
 
-### running application
-1. install python 
-2. install virtual env
+### Running application
+1. Install python 
+2. Install virtual env
 
-### commands to run application
+### 1.0 Install python
 ```
-source myenv/bin/activate
-python ./manage.py runserver
+Install python according your os below example for linux
 
+$ sudo apt-get update
+$ sudo apt-get install python3.6
+
+check by below command
+$ python3 --version
+```
+
+
+### 2.0 To install virtual env and activate in Linux
+```
+$ python3 -m venv myvenv
+$ source myvenv/bin/activate
+```
+### 2.1 Install all the dependency
+```
+$ python -m pip install --upgrade pip
+$ pip install psycopg2-binary
+$ pip install -r requirements.txt
+```
+
+### 2.3 Command to run application
+```
+$ python ./manage.py runserver
  ````
